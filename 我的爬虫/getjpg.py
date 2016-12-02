@@ -20,4 +20,4 @@ def getImg(html):
 
 html = getHtml("http://tieba.baidu.com")
 
-print getImg(html)
+print (getImg(html))
