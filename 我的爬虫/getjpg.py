@@ -18,6 +18,6 @@ def getImg(html):
         x+=1
     return imglist 
 
-html = getHtml("http://tieba.baidu.com")
+html = getHtml("http://image.baidu.com/")
 
 print (getImg(html))

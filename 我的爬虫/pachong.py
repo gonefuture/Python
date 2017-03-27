@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import urllib
+import urllib.request
 import re
 import time
 import os
@@ -17,11 +17,12 @@ def schedule(a,b,c):
   print (('%.2f%%') % per)
 
 def getHtml(url):
-  response = urllib.urlopen(url)
+  response = urllib.request.urlopen(url)
   html = response.read()
   return html
 
 def downloadImg(html):
+  html=html.decode('utf-8')#python3
   reg = r'src="(.+?\.jpg)" pic_ext'
   imgre = re.compile(reg)
   imglist = re.findall(imgre, html)
@@ -34,9 +35,10 @@ def downloadImg(html):
     os.makedirs(picpath)   
   x = 0
   for imgurl in imglist:
+    print (imglist)
     target = picpath+'\\%s.jpg' % x
     print (('Downloading image to location: ') + target +( '\nurl=') + imgurl)
-    image = urllib.urlretrieve(imgurl, target, schedule)
+    image = urllib.request.urlretrieve(imgurl, target, schedule)
     x += 1
   return image
 
@@ -50,6 +52,7 @@ if __name__ == '__main__':
       *************************************''')
   
   html = getHtml('http://tieba.baidu.com/p/3527030612?pid=64330062307&cid=0#64330062307')
+  #可行的网站：http://tieba.baidu.com/p/3527030612?pid=64330062307&cid=0#64330062307
 
   downloadImg(html)
   print ('Download has finished.')     
